@@ -160,7 +160,7 @@ class PriceService {
     });
   }
 }
-
+/*
 let tripService = new TripService();
 tripService
   .findByName("Paris")
@@ -185,5 +185,29 @@ tripService
       console.log("reject :", reject);
       throw reject;
     }
+  )
+  .catch((err) => console.log(err));
+    */
+
+  let tripService2 = new TripService();
+  let priceService2 = new PriceService();
+  tripService2.findByName('Paris')
+  .then(
+    (data) => {
+        return priceService2.findPriceByTripId(data.id);
+      },
+      (reject) => {
+        console.log("reject :", reject);
+        throw reject;
+      }
+  )
+  .then(
+    (data) => {
+        console.log("Price found :", data);
+      },
+      (reject) => {
+        console.log("reject :", reject);
+        throw reject;
+      }
   )
   .catch((err) => console.log(err));
