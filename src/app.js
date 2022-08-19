@@ -107,19 +107,21 @@ class TripService {
       setTimeout(() => {
         // ici l'exécution du code est asynchrone
         // TODO utiliser resolve et reject en fonction du résultat de la recherche
-        //let tripToReturn = this.tripsSet.filter(t => t.name == tripName);
+        //let tripToReturn = this.tripsSet.filter((t) => t.name == tripName)[0];
         let tripToReturn = null;
 
+        
         for(let trip of this.tripsSet) {
             if(trip.name == tripName) {
                 tripToReturn = trip;
             }
         }
+
         if (tripToReturn != null) {
           resolve(tripToReturn);
         } 
         else {
-          reject("Pas de voyage à ce nom");
+          reject("No trip with name " + tripName);
         }
       }, 2000);
     });
@@ -132,7 +134,7 @@ class PriceService {
     // 'rio-de-janeiro' --> price == 800)
     // no price for 'nantes'
     this.pricesMap = new Map();
-    this.pricesMap.set("paris", 150);
+    this.pricesMap.set("paris", 100);
     this.pricesMap.set("rio-de-janeiro", 800);
   }
   findPriceByTripId(tripId) {
@@ -142,16 +144,16 @@ class PriceService {
         // TODO utiliser resolve et reject en fonction du résultat de la recherche
         let priceToReturn = null;
 
-        for (let [key, value] of this.pricesMap.entries()) {
+        for (let [key, price] of this.pricesMap.entries()) {
             if (key == tripId) {
-                priceToReturn = value;
+                priceToReturn = price;
             }
         }
         if(priceToReturn != null) {
             resolve(priceToReturn);
         }
         else {
-            reject("Pas de voyage avec cet id");
+            reject("No price for trip id " + tripId);
         }
 
       }, 2000);
